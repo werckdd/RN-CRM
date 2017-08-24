@@ -20,6 +20,7 @@ export default (state = initState, action) => {
             return {
                 ...state,
                 people: people.concat(action.payload),
+                detailView: false,
                 first_name: '',
                 last_name: '',
                 phone: '',

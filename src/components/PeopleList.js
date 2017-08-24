@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
 
     return {
-        peoples: state.people, detailView: state.detailView,len: state.people.length
+        peoples: state.people,
+        detailView: state.detailView,
     }
 }    
 
@@ -42,14 +43,6 @@ class PeopleList extends Component {
         this.props.loadInitialContacts()
     }
 
-    shouldComponentUpdate(nextProps) {
-        console.log(`next ${nextProps.len} prop ${this.props.len}`)
-        if (nextProps.len !== this.props.len) {
-            return true
-        } else {
-            return false
-        } 
-    }
 
     renderInitView() {
         if (this.props.detailView === true) {
