@@ -39,10 +39,8 @@ const styles = StyleSheet.create({
     },
     closeIcon: {
         position: 'absolute',
-        top: 5,
-        left: 295,
-        color: 'rgba(233,166,154,0.8)',
-        backgroundColor: 'rgba(255,255,255,0)'
+        top: -1,
+        left: 260 ,
     },
     icon: {
         position: 'absolute',
@@ -113,9 +111,13 @@ class DetailsView extends Component {
                         style={[theme.cardImageStyle, styles.image]}
                     />
                     <EvilIcon name={'user'} size={100} style={styles.icon} />
-                    <SimpleIcon name={'close'} size={30} style={styles.closeIcon}
+                    <TouchableOpacity style={styles.closeIcon}
                         onPress={() => this.props.noneSelected()}
-                    />
+                    >
+                        <Image
+                            source={require('../images/close.png')}
+                        />
+                    </TouchableOpacity>
                     <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name} {this.props.person.last_name}</Text>
                     <Text style={[theme.cardTitleStyle, styles.title2]}>from {this.props.person.company}</Text>
                     <View style={styles.textArea}>
