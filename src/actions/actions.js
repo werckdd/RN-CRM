@@ -77,3 +77,30 @@ export const deleteContacts = (id) => {
             
     }
 }
+
+export const updateContact = (personSelected) => {
+    return {
+        type: 'UPDATE_CONTACT',
+        payload:personSelected
+    }
+}
+
+export const saveContact = ({ id, first_name, last_name, phone, email, company, project, notes })=>{
+    const { currentUser } = firebase.auth()
+
+    return (dispatch) => {
+        firebase.database().ref(`users/${currentUser.uid}/people`)
+            .orderByChild('id')
+            .equalTo(id)
+            .on('child_added', function (snapshot) {
+                console.log(snapshot.val())
+                snapshot.ref.set({ id,first_name, last_name, phone, email, company, project, notes })
+                dispatch({ type: 'SAVE_CONTACT' })
+                firebase.database().ref(`users/${currentUser.uid}/people`)
+                    .once('value', snapshot => {
+                        const data = R.values(snapshot.val())
+                        dispatch({ type: 'INITIAL_FETCH', payload: data })
+                    })
+            })
+    }
+}

@@ -1,8 +1,8 @@
-import React,{ Component} from 'react'
-import { Text, View, StyleSheet, ScrollView} from 'react-native'
+import React, { Component } from 'react'
+import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
-import {MKTextField,MKColor,MKButton} from 'react-native-material-kit'
-import {connect} from 'react-redux'
+import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
+import { connect } from 'react-redux'
 import * as actions from '../actions/actions'
 
 
@@ -13,52 +13,51 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 20,
         paddingRight: 20,
-        justifyContent:'space-between'
+        justifyContent: 'space-between'
     },
     fieldStyles: {
         height: 40,
         color: MKColor.Orange,
     },
     addButton: {
-        marginTop:20
+        marginTop: 20
     }
 })
 
-const AddButton = MKButton.coloredButton()
-    .withText('ADD')
+const UpdateButton = MKButton.coloredButton()
+    .withText('UPDATE')
     .build()
 
-class AddPerson extends Component{
+class UpdatePerson extends Component {
     static navigationOptions = {
         tabBarLaberl: 'Add Person',
         tabBarIcon: ({ tintColor }) => (
-            <Icon 
+            <Icon
                 name={'plus'}
                 size={45}
-                style={[{color:tintColor},styles.icon]}
+                style={[{ color: tintColor }, styles.icon]}
             />
         )
     }
 
-    onAddPress() {
-        const { first_name, last_name, phone, email, company, project, notes } = this.props
-        const id = this.props.len + 1
-        this.props.createNewContact({id,first_name,last_name,phone,email,company,project,notes})
+    onUpdatePress() {
+        const { first_name, last_name, phone, email, company, project, notes, id } = this.props
+        
+        this.props.saveContact({ id, first_name, last_name, phone, email, company, project, notes })
 
-        this.props.navigation.navigate('PeopleList')
     }
 
-    render() {      
+    render() {
         return (
             <ScrollView showVerticalScrollIndicator={false}>
                 <View style={styles.form}>
-                    <Text>Add a new contact</Text>
+                    <Text>Update contact</Text>
                     <MKTextField
                         textInputStyle={styles.fieldStyles}
                         placeholder={'First name...'}
                         tintColor={MKColor.Teal}
                         value={this.props.first_name}
-                        onChangeText={value => this.props.formUpdate({prop:'first_name',value})}
+                        onChangeText={value => this.props.formUpdate({ prop: 'first_name', value })}
                     />
                     <MKTextField
                         textInputStyle={styles.fieldStyles}
@@ -103,19 +102,17 @@ class AddPerson extends Component{
                         onChangeText={value => this.props.formUpdate({ prop: 'notes', value })}
                     />
                     <View style={styles.addButton}>
-                        <AddButton onPress={this.onAddPress.bind(this)}/>
+                        <UpdateButton onPress={this.onUpdatePress.bind(this)} />
                     </View>
-                </View>    
+                </View>
             </ScrollView>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    const { first_name, last_name, phone, email, company, project, notes, } = state
-    const len = state.people.length
-    console.log(len)
-    return { first_name, last_name, phone, email, company, project, notes, len }
+    const { first_name, last_name, phone, email, company, project, notes,id } = state
+    return { first_name, last_name, phone, email, company, project, notes, id }
 }
 
-export default connect(mapStateToProps,actions)(AddPerson)
+export default connect(mapStateToProps, actions)(UpdatePerson)
