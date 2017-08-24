@@ -24,3 +24,18 @@ const d =ob.concat({
 
 console.log(d == ob)
 
+{
+    "rules": {
+        "users":{
+            "$uid":{
+                ".read":"$uid === auth.uid",
+                    ".write":"$uid === auth.uid",
+                        "people":{
+                    ".read":"$uid === auth.uid",
+                        ".write":"$uid === auth.uid",
+                            ".indexOn":"id"
+                }
+            }
+        }
+    }
+}

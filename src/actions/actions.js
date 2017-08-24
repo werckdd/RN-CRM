@@ -34,6 +34,11 @@ export const createNewContact = ({id, first_name, last_name, phone, email, compa
                         const data = R.values(snapshot.val())
                         dispatch({ type: 'INITIAL_FETCH', payload: data })
                     })
+            }).catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log("error code: " + errorCode);
+                console.log("error message: " + errorMessage);
             })
     }
 }
@@ -63,7 +68,6 @@ export const deleteContacts = (id) => {
                 console.log(snapshot.val())
                 snapshot.ref.remove()
                 dispatch({ type: 'DELETE_CONTACT' })
-                dispatch({ type: 'NONE_SELECTED' })
                 firebase.database().ref(`users/${currentUser.uid}/people`)
                     .once('value', snapshot => {
                         const data = R.values(snapshot.val())
@@ -73,7 +77,3 @@ export const deleteContacts = (id) => {
             
     }
 }
-
-// ref.orderByValue().equalTo('test1').on('child_added', function (snapshot) {
-//     snapshot.ref().remove();
-// });
