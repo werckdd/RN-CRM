@@ -1,7 +1,7 @@
-import people from './people.json'
+
 
 const initState = {
-    people,
+    people:[],
     detailView: false,
     personSelected: null,
     first_name: '',
@@ -19,7 +19,7 @@ export default (state = initState, action) => {
         case 'INITIAL_FETCH':
             return {
                 ...state,
-                people: people.concat(action.payload),
+                people: action.payload,
                 detailView: false,
                 first_name: '',
                 last_name: '',
@@ -50,7 +50,13 @@ export default (state = initState, action) => {
             return {
                 ...state,
                 ...action.newPerson
-            }  
+            } 
+        case 'DELET_CONTACT':
+            return {
+                ...state,
+                detailView: false,
+                personSelected:false
+            }    
         default:
             return state    
     }

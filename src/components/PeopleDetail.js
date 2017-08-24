@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image,ScrollView,TouchableOpacity,Linking } from 'react-native'
 import { connect } from 'react-redux'
-import {getTheme} from 'react-native-material-kit'
+import { getTheme, MKTextField, MKColor, MKButton} from 'react-native-material-kit'
 import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons'
@@ -65,6 +65,26 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems:'center'
+    },
+    editIcon: {
+        color:'#26a6e4'
+    },
+    sections: {
+        flexDirection: 'row',
+        paddingLeft: 10,
+        paddingTop: 10,
+        width:100
+    },
+    deleteIcon: {
+        color: '#e9a69a'
+    },
+    editDeleteArea: {
+        flexDirection: 'row',
+        paddingRight: 20,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: 'rgba(211,211,211,0.3)',
+        marginBottom:10
     }
 });
 
@@ -95,23 +115,33 @@ class PeopleDetail extends Component {
                     />
                     <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name} {this.props.person.last_name}</Text>
                     <Text style={[theme.cardTitleStyle, styles.title2]}>from {this.props.person.company}</Text>
-                    <View stle={styles.textArea}>
+                    <View style={styles.textArea}>
                         <MaterialIcon name={'phone'} size={40} style={styles.textIcon} />                    
                         <Text style={theme.cardContentStyle}>{this.props.person.phone}</Text>                    
                     </View>  
-                    <View stle={styles.textArea}>
+                    <View style={styles.textArea}>
                         <MaterialIcon name={'email'} size={40} style={styles.textIcon} />
                         <Text style={theme.cardContentStyle}>{this.props.person.email}</Text>
                     </View> 
-                    <View stle={styles.textArea}>
+                    <View style={styles.textArea}>
                         <MaterialIcon name={'assignment'} size={40} style={styles.textIcon} />
                         <Text style={theme.cardContentStyle}>{this.props.person.project}</Text>
                     </View> 
-                    <View stle={styles.textArea}>
+                    <View style={styles.textArea}>
                         <MaterialIcon name={'mode-edit'} size={40} style={styles.textIcon} />
                         <Text style={theme.cardContentStyle}>{this.props.person.notes}</Text>
                     </View> 
-                    <View stle={styles.actionArea}>
+                    <View style={styles.editDeleteArea}>
+                        <TouchableOpacity style={styles.sections}>
+                            <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon} />
+                            <Text style={theme.cardContentStyle}>EDIT</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.sections} onPress={() => { this.props.deleteContacts(this.props.person.id)}}>
+                            <MaterialIcon name={'delete-forever'} size={40} style={styles.editIcon} />
+                            <Text style={theme.cardContentStyle}>DELETE</Text>
+                        </TouchableOpacity>
+                    </View>    
+                    <View style={styles.actionArea}>
                         <TouchableOpacity onPress={()=>{this.handleClick(`tel:${this.props.person.phone}`)}}>
                             <Image source={require('../images/call.png')} style={styles.actionImage} />
                         </TouchableOpacity>

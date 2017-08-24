@@ -47,8 +47,33 @@ export const loadInitialContacts = () => {
         firebase.database().ref(`users/${currentUser.uid}/people`)
             .once('value', snapshot => {
                 const data = R.values(snapshot.val()) 
-                return dispatch({ type: 'INITIAL_FETCH', payload: data})
+                dispatch({ type: 'INITIAL_FETCH', payload: data})
             })
     }
 }
 
+export const deleteContacts = (id) => {
+    const { currentUser } = firebase.auth()
+
+    return (dispatch) => {
+        firebase.database().ref(`users/${currentUser.uid}/people`)
+            .orderByChild('id') 
+            .equalTo(id)  
+            .on('child_added', function (snapshot) {
+                console.log(snapshot.val())
+                snapshot.ref.remove()
+                dispatch({ type: 'DELETE_CONTACT' })
+                dispatch({ type: 'NONE_SELECTED' })
+                firebase.database().ref(`users/${currentUser.uid}/people`)
+                    .once('value', snapshot => {
+                        const data = R.values(snapshot.val())
+                        dispatch({ type: 'INITIAL_FETCH', payload: data })
+                    })
+            })
+            
+    }
+}
+
+// ref.orderByValue().equalTo('test1').on('child_added', function (snapshot) {
+//     snapshot.ref().remove();
+// });
