@@ -1,4 +1,17 @@
-const ob = [
+let R = require('ramda')
+
+
+const arr = [
+    {
+        "id": 1,
+        "first_name": "Emmanuel",
+        "last_name": "Henri",
+        "phone": "555-555-2342",
+        "email": "hello@hello.com",
+        "company": "LinkedIn",
+        "project": "CRM Project",
+        "notes": "Lorem ipsum dolor sit amet, duo ne sumo cotidieque. Te sea modo sale numquam, eu sed quando scaevola persecuti, ius quodsi reprehendunt et."
+    },
     {
         "id": 2,
         "first_name": "Jasmine",
@@ -8,34 +21,11 @@ const ob = [
         "company": "Hello World",
         "project": "CRM Project",
         "notes": "Lorem ipsum dolor sit amet, duo ne sumo cotidieque. Te sea modo sale numquam, eu sed quando scaevola persecuti, ius quodsi reprehendunt et. Quodsi honestatis in duo. Eam oblique lobortis expetenda te, soleat virtute no per.Lorem ipsum dolor sit amet, duo ne sumo cotidieque. Te sea modo sale numquam, eu sed quando scaevola persecuti, ius quodsi reprehendunt et. Quodsi honestatis in duo. Eam oblique lobortis expetenda te, soleat virtute no per."
-    }  
+    }
 ]
 
-const d =ob.concat({
-    "id": 5,
-    "first_name": "Julie",
-    "last_name": "Mckenney",
-    "phone": "555-555-2342",
-    "email": "hello@hello.com",
-    "company": "Red Company",
-    "project": "CRM Project",
-    "notes": "Lorem ipsum dolor sit amet, duo ne sumo cotidieque."
-})
+console.log(arr)
 
-console.log(d == ob)
+let result = R.groupBy("company")
 
-{
-    "rules": {
-        "users":{
-            "$uid":{
-                ".read":"$uid === auth.uid",
-                    ".write":"$uid === auth.uid",
-                        "people":{
-                    ".read":"$uid === auth.uid",
-                        ".write":"$uid === auth.uid",
-                            ".indexOn":"id"
-                }
-            }
-        }
-    }
-}
+console.log(result)

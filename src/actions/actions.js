@@ -96,11 +96,6 @@ export const saveContact = ({ id, first_name, last_name, phone, email, company, 
                 console.log(snapshot.val())
                 snapshot.ref.set({ id,first_name, last_name, phone, email, company, project, notes })
                 dispatch({ type: 'SAVE_CONTACT' })
-                firebase.database().ref(`users/${currentUser.uid}/people`)
-                    .once('value', snapshot => {
-                        const data = R.values(snapshot.val())
-                        dispatch({ type: 'INITIAL_FETCH', payload: data })
-                    })
             })
     }
 }

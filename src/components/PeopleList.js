@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, FlatList} from 'react-native';
 import { connect } from 'react-redux';
-
 import PeopleItem from './PeopleItem'
 import Icon from 'react-native-vector-icons/EvilIcons'
 import PeopleDetail from './PeopleDetail'
