@@ -30,12 +30,7 @@ export default class App extends Component {
 
     componentWillMount() {
         firebase.initializeApp({
-            apiKey: "AIzaSyApl3ElCvmf7nPa0kTwYqamOHtEZwSEhQs",
-            authDomain: "crmlynda-b74ae.firebaseapp.com",
-            databaseURL: "https://crmlynda-b74ae.firebaseio.com",
-            projectId: "crmlynda-b74ae",
-            storageBucket: "crmlynda-b74ae.appspot.com",
-            messagingSenderId: "920105120798"
+          
         })
 
         firebase.auth().onAuthStateChanged((user) => {
